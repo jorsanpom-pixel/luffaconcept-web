@@ -152,13 +152,25 @@ input:focus{outline:2px solid var(--focus);outline-offset:1px;border-color:trans
 .pay-note{font-size:13.5px;color:var(--muted);text-align:center}
 .err{color:var(--error);font-size:14.5px}
 
-/* Payment step */
-.paystep{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:clamp(24px,5vw,44px);display:grid;gap:18px;justify-items:center;text-align:center}
-.paystep h3{font-size:clamp(26px,4.6vw,36px)}
+.btn-main[disabled]{opacity:.5;cursor:progress;transform:none}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.fields .full{grid-column:1/-1}
+.fields label.f{max-width:none}
+label.f small{font-weight:400;color:var(--muted)}
+input[type=text],input[type=tel],textarea{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px;width:100%}
+textarea{min-height:76px;resize:vertical}
+textarea:focus{outline:2px solid var(--focus);outline-offset:1px;border-color:transparent}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--muted)}
+.consent input{margin-top:4px;accent-color:var(--olive)}
+@media (max-width:560px){.fields{grid-template-columns:1fr}}
+
+/* Booking confirmation */
+.done{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:clamp(24px,5vw,44px);display:grid;gap:18px;justify-items:center;text-align:center}
+.done h3{font-size:clamp(26px,4.6vw,36px)}
 .ticket{width:100%;max-width:440px;border:1px dashed var(--accent);border-radius:16px;padding:18px 20px;text-align:left;display:grid;gap:6px;font-size:15.5px}
 .ticket b{font-weight:500;color:var(--muted)}
-.paystep .btn-main{max-width:440px}
-.linkbtn{background:none;border:0;color:var(--muted);font:inherit;font-size:14.5px;text-decoration:underline;text-underline-offset:4px;cursor:pointer}
+.done .btn-main{max-width:320px}
+.full-note{background:var(--accent-soft);border-radius:16px;padding:18px 20px;font-size:15.5px}
 
 /* Venue */
 .venue{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:28px;align-items:start}
@@ -283,9 +295,24 @@ footer .logo{margin-top:8px}
         </fieldset>
 
         <fieldset>
-          <legend><span class="step">Paso 3</span><h3>Tu correo</h3></legend>
-          <label class="f" for="email">Te enviaremos aquí la confirmación de tu entrada
-            <input type="email" id="email" name="email" autocomplete="email" required placeholder="nombre@email.com">
+          <legend><span class="step">Paso 3</span><h3>Tus datos</h3></legend>
+          <div class="fields">
+            <label class="f full" for="name">Nombre y apellidos
+              <input type="text" id="name" name="name" autocomplete="name" required maxlength="120">
+            </label>
+            <label class="f" for="email">Correo electrónico
+              <input type="email" id="email" name="email" autocomplete="email" required maxlength="200" placeholder="nombre@email.com">
+            </label>
+            <label class="f" for="phone">Teléfono
+              <input type="tel" id="phone" name="phone" autocomplete="tel" required maxlength="30" placeholder="+34 600 000 000">
+            </label>
+            <label class="f full" for="notes">Alergias, intolerancias o lesiones <small>(opcional)</small>
+              <textarea id="notes" name="notes" maxlength="500" placeholder="Por ejemplo: alergia al marisco, lesión de rodilla…"></textarea>
+            </label>
+          </div>
+          <label class="consent" for="consent">
+            <input type="checkbox" id="consent" name="consent" required>
+            <span>Acepto que LUFFA use mis datos para gestionar mi reserva y contactarme sobre el evento.</span>
           </label>
         </fieldset>
 
@@ -294,21 +321,22 @@ footer .logo{margin-top:8px}
             <dt>Entrada</dt><dd>The Luffa Wellness Experience</dd>
             <dt>Poke</dt><dd id="sum-poke"></dd>
             <dt>Postre</dt><dd id="sum-sweet"></dd>
-            <dt class="total">Total</dt><dd class="total">66,55 €<small>IVA incluido</small></dd>
+            <dt class="total">Precio</dt><dd class="total">66,55 €<small>IVA incluido</small></dd>
           </dl>
-          <p class="err" id="err" hidden></p>
-          <button type="submit" class="btn btn-main">Continuar al pago</button>
-          <p class="pay-note">En el siguiente paso pagas con tarjeta, Apple Pay o Google Pay a través de Stripe, y nos dejas tu nombre, teléfono y alergias.</p>
+          <p class="err" id="err" role="alert" hidden></p>
+          <button type="submit" class="btn btn-main" id="submit">Reservar mi plaza</button>
+          <p class="pay-note">Hoy no pagas nada. Te enviaremos por correo tu entrada y cómo completar el pago.</p>
         </div>
       </form>
 
-      <div class="paystep" id="paystep" hidden>
-        <span class="caps" style="color:var(--muted)">Último paso</span>
-        <h3>Confirma y paga tu entrada</h3>
+      <div class="full-note" id="full" hidden>Las 30 plazas están reservadas. Si se libera alguna, lo anunciaremos en nuestras redes.</div>
+
+      <div class="done" id="done" hidden>
+        <span class="caps" style="color:var(--muted)">Plaza reservada</span>
+        <h3 id="done-title">¡Nos vemos el 14!</h3>
         <div class="ticket" id="ticket"></div>
-        <a class="btn btn-main" id="paylink" href="#" rel="noopener">Pagar 66,55 €</a>
-        <p class="pay-note" id="paynote">Tu plaza queda reservada cuando se completa el pago.</p>
-        <button type="button" class="linkbtn" id="back">Cambiar mi elección</button>
+        <p class="pay-note">Te enviaremos la entrada y los detalles del pago a tu correo. Sábado 14 de noviembre, 10:00, Sala Karuna (Marbella).</p>
+        <button type="button" class="btn btn-main" id="again">Reservar otra plaza</button>
       </div>
     </div>
   </section>
@@ -344,55 +372,82 @@ footer .logo{margin-top:8px}
 
 <script>
 (() => {
-  // Stripe Payment Link for the ticket. Empty = payment not connected yet.
-  const PAYMENT_LINK = "";
+  // Bookings go to Supabase table luffa_reservas (public can only insert; see crear-tabla-reservas.sql)
+  const API = 'https://hloguitnfhiatvwnsbos.supabase.co/rest/v1';
+  const HEADERS = { apikey: 'sb_publishable_mtFZV-I9R0h6La04pWZJ_g_nnm1sKBG', 'Content-Type': 'application/json' };
 
-  const form = document.getElementById('booking');
-  const pay = document.getElementById('paystep');
-  const err = document.getElementById('err');
+  const $ = id => document.getElementById(id);
+  const form = $('booking'), done = $('done'), err = $('err'), submit = $('submit');
   const picked = n => form.querySelector(`[name="${n}"]:checked`);
+  const fail = msg => { err.textContent = msg; err.hidden = false; };
 
   function sync() {
-    document.getElementById('sum-poke').textContent = picked('poke').dataset.label;
-    document.getElementById('sum-sweet').textContent = picked('sweet').dataset.label;
+    $('sum-poke').textContent = picked('poke').dataset.label;
+    $('sum-sweet').textContent = picked('sweet').dataset.label;
   }
   form.addEventListener('change', sync);
   sync();
 
-  form.addEventListener('submit', e => {
+  function showFull() {
+    form.hidden = true; $('full').hidden = false;
+    document.querySelector('.seats').textContent = 'Plazas agotadas';
+  }
+
+  // Remaining places, shown in the hero
+  fetch(`${API}/rpc/luffa_plazas_libres`, { method: 'POST', headers: HEADERS, body: '{}' })
+    .then(r => r.ok ? r.json() : null)
+    .then(n => {
+      if (typeof n !== 'number') return;
+      if (n <= 0) return showFull();
+      document.querySelector('.seats').textContent = n <= 10 ? `Solo quedan ${n} plazas` : `Plazas limitadas · quedan ${n} de 30`;
+    })
+    .catch(() => {});
+
+  form.addEventListener('submit', async e => {
     e.preventDefault();
-    const email = document.getElementById('email').value.trim();
-    if (!/^\S+@\S+\.\S+$/.test(email)) { err.textContent = 'Escribe un correo válido para recibir tu entrada.'; err.hidden = false; return; }
+    const row = {
+      nombre: $('name').value.trim(),
+      email: $('email').value.trim(),
+      telefono: $('phone').value.trim(),
+      poke: picked('poke').value,
+      postre: picked('sweet').value,
+      notas: $('notes').value.trim() || null,
+    };
+    if (row.nombre.length < 2) return fail('Escribe tu nombre y apellidos.');
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(row.email)) return fail('Escribe un correo válido: ahí te enviaremos la entrada.');
+    if (row.telefono.replace(/\D/g, '').length < 9) return fail('Escribe un teléfono válido.');
+    if (!$('consent').checked) return fail('Marca la casilla de datos para poder reservar.');
     err.hidden = true;
 
-    const poke = picked('poke'), sweet = picked('sweet');
-    const t = document.getElementById('ticket');
+    submit.disabled = true; submit.textContent = 'Reservando…';
+    try {
+      const r = await fetch(`${API}/luffa_reservas`, {
+        method: 'POST', headers: { ...HEADERS, Prefer: 'return=minimal' }, body: JSON.stringify(row),
+      });
+      if (!r.ok) {
+        const body = await r.text();
+        if (body.includes('COMPLETO')) return showFull();
+        throw new Error(body);
+      }
+    } catch {
+      return fail('No hemos podido guardar tu reserva. Revisa tu conexión e inténtalo de nuevo.');
+    } finally {
+      submit.disabled = false; submit.textContent = 'Reservar mi plaza';
+    }
+
+    const t = $('ticket');
     t.replaceChildren();
-    [['Poke', poke.dataset.label], ['Postre', sweet.dataset.label], ['Correo', email]].forEach(([k, v]) => {
+    [['Nombre', row.nombre], ['Poke', picked('poke').dataset.label], ['Postre', picked('sweet').dataset.label], ['Correo', row.email]].forEach(([k, v]) => {
       const p = document.createElement('div'), b = document.createElement('b');
       b.textContent = k + ': '; p.append(b, v); t.append(p);
     });
-
-    // client_reference_id shows the choice on the Stripe payment, e.g. GLOW-ACAI-lx2k9
-    const ref = `${poke.value}-${sweet.value}-${Date.now().toString(36)}`;
-    const link = document.getElementById('paylink');
-    if (PAYMENT_LINK.startsWith('https://')) {
-      const url = new URL(PAYMENT_LINK);
-      url.searchParams.set('client_reference_id', ref);
-      url.searchParams.set('prefilled_email', email);
-      link.href = url.toString();
-      link.hidden = false;
-      document.getElementById('paynote').textContent = 'Tu plaza queda reservada cuando se completa el pago.';
-    } else {
-      link.hidden = true;
-      document.getElementById('paynote').textContent = 'El pago se activará muy pronto. Vuelve a esta página en unas horas.';
-    }
-    form.hidden = true; pay.hidden = false;
-    pay.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    $('done-title').textContent = `¡Nos vemos el 14, ${row.nombre.split(' ')[0]}!`;
+    form.hidden = true; done.hidden = false;
+    done.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 
-  document.getElementById('back').addEventListener('click', () => {
-    pay.hidden = true; form.hidden = false;
+  $('again').addEventListener('click', () => {
+    form.reset(); sync(); done.hidden = true; form.hidden = false;
     form.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 })();

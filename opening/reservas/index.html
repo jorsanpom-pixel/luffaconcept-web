@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Reservas · Luffa Opening</title>
+<link rel="preconnect" href="https://api.fontshare.com">
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600&f[]=clash-grotesk@400,500&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%234A5122'/%3E%3Ctext x='16' y='22' font-family='Arial Black,Arial' font-weight='900' font-size='17' fill='%23BBD4A9' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E">
+<style>
+/* Layout: an olive header band with the event and headline counts, then the kitchen tally and the guest list; on phones each guest becomes a card. */
+:root{
+  --olive:#4A5122; --sage:#BBD4A9; --on-olive:#F6F4EA; --on-olive-muted:#CBD6B8;
+  --bg:#F3EEE5; --paper:#FBF9F3; --ink:#262A18; --muted:#62684F; --line:#DDD6C6;
+  --accent:#4A5122; --accent-soft:#E4EAD5; --on-accent:#F6F4EA; --focus:#7D8F45;
+  --warn:#9A5B16; --warn-soft:#F6E7CF; --ok:#3F6B2A; --ok-soft:#DCEBCF; --off:#8A8577; --off-soft:#ECE8DE; --error:#A2412C;
+  --f-display:"Clash Display", "Arial Narrow", system-ui, sans-serif;
+  --f-body:"Clash Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root{
+  --olive:#3B4119; --sage:#BBD4A9; --on-olive:#F6F4EA; --on-olive-muted:#C6D1B2;
+  --bg:#16180F; --paper:#1F2217; --ink:#EDEBDF; --muted:#A9AE96; --line:#363A28;
+  --accent:#BBD4A9; --accent-soft:#2C3320; --on-accent:#1F2217; --focus:#BBD4A9;
+  --warn:#E7B171; --warn-soft:#3A2D18; --ok:#A9D08A; --ok-soft:#24341A; --off:#8F8B7E; --off-soft:#2A2A22; --error:#E59478; color-scheme:dark}}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 var(--f-body);padding-bottom:env(safe-area-inset-bottom,0px)}
+.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+h1,h2{font-family:var(--f-display);font-weight:500;margin:0;text-wrap:balance}
+p{margin:0}
+.caps{font-family:var(--f-display);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:500}
+button,select,input{font:inherit}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.btn{border:0;border-radius:999px;padding:11px 18px;font:500 14.5px/1 var(--f-display);letter-spacing:.03em;cursor:pointer;background:var(--accent);color:var(--on-accent)}
+.btn.ghost{background:transparent;color:inherit;border:1px solid currentColor;opacity:.85}
+.btn[disabled]{opacity:.5;cursor:progress}
+
+/* Login */
+.login{min-height:100vh;min-height:100dvh;display:grid;place-items:center;background:var(--olive);color:var(--on-olive);padding:24px max(16px, env(safe-area-inset-left, 0px))}
+.login form{width:100%;max-width:380px;display:grid;gap:16px}
+.login h1{font-size:30px;line-height:1.05}
+.login .caps{color:var(--sage)}
+.login label{display:grid;gap:6px;font-size:14px;color:var(--on-olive-muted)}
+.login input[type=password],.login input[type=text]{border:1px solid color-mix(in srgb, var(--sage) 45%, transparent);background:rgba(255,255,255,.06);color:var(--on-olive);border-radius:12px;padding:13px 14px;width:100%}
+.login .remember{display:flex;gap:8px;align-items:center;font-size:14px}
+.login .remember input{accent-color:var(--sage)}
+.login .btn{background:var(--sage);color:#2C3114;padding:15px 18px;font-size:15.5px}
+.login .err{color:#F3B9A6;font-size:14.5px}
+
+/* Header */
+header{background:var(--olive);color:var(--on-olive)}
+header .wrap{padding-block:22px 26px;display:grid;gap:18px}
+.top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:12px}
+.top .caps{color:var(--sage)}
+.top h1{font-size:clamp(24px,4vw,32px);line-height:1.1}
+.top .meta{color:var(--on-olive-muted);font-size:14.5px}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+.actions .btn{background:var(--sage);color:#2C3114}
+.actions .btn.ghost{background:transparent;color:var(--on-olive)}
+.stats{display:flex;flex-wrap:wrap;gap:10px 34px}
+.stat{display:grid;gap:0}
+.stat b{font:600 34px/1.05 var(--f-display);font-variant-numeric:tabular-nums}
+.stat span{font-size:13.5px;color:var(--on-olive-muted)}
+.bar{height:8px;border-radius:99px;background:rgba(255,255,255,.14);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--sage);border-radius:99px;transition:width .4s ease}
+
+main .wrap{padding-block:26px 48px;display:grid;gap:26px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:18px 20px}
+h2{font-size:20px;margin-bottom:12px}
+.kitchen{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:24px}
+.tally{display:grid;gap:8px}
+.tally .row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center;font-size:15px}
+.tally .row b{font:600 18px var(--f-display);font-variant-numeric:tabular-nums}
+.tally .row .mini{grid-column:1/-1;height:6px;border-radius:99px;background:var(--accent-soft);overflow:hidden}
+.tally .row .mini i{display:block;height:100%;background:var(--accent)}
+.kitchen .hint{font-size:13px;color:var(--muted);margin-top:10px}
+@media (max-width:700px){.kitchen{grid-template-columns:1fr}}
+
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:12px}
+.toolbar h2{margin:0}
+.filters{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;padding:6px 12px;font-size:13.5px;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.search{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:8px 14px;min-width:0;width:220px;max-width:100%}
+
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th{text-align:left;font:500 11.5px var(--f-display);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:11px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+tr.cancelada td{color:var(--off)}
+tr.cancelada td.name{text-decoration:line-through}
+td.num{color:var(--muted);font-variant-numeric:tabular-nums;width:1%}
+td.name b{font-weight:500}
+td.when{color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+.contact a{color:inherit;text-underline-offset:3px;display:block;word-break:break-all}
+.allergy{display:inline-block;background:var(--warn-soft);color:var(--warn);border-radius:8px;padding:2px 8px;font-size:13.5px}
+.none{color:var(--muted)}
+select.estado{border:1px solid var(--line);border-radius:999px;padding:5px 28px 5px 12px;font-size:13.5px;cursor:pointer;appearance:none;-webkit-appearance:none;
+  background:var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23888' fill='none' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 11px center;color:var(--ink)}
+select.estado.reservada{background-color:var(--accent-soft)}
+select.estado.pagada{background-color:var(--ok-soft);color:var(--ok);border-color:transparent}
+select.estado.cancelada{background-color:var(--off-soft);color:var(--off)}
+.empty{text-align:center;color:var(--muted);padding:34px 10px}
+
+@media (max-width:760px){
+  thead{display:none}
+  table,tbody,tr,td{display:block;width:100%}
+  tr{border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:10px;background:var(--bg)}
+  td{border:0;padding:3px 0}
+  td.num{display:none}
+  td[data-k]::before{content:attr(data-k);display:block;font:500 10.5px var(--f-display);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+  td.name b{font-size:17px}
+}
+.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));translate:-50% 0;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-size:14px;box-shadow:0 6px 20px rgba(0,0,0,.2)}
+.err-inline{color:var(--error)}
+</style>
+</head>
+<body>
+
+<section class="login" id="login">
+  <form id="login-form" autocomplete="on">
+    <span class="caps">The Luffa Wellness Experience</span>
+    <h1>Lista de reservas</h1>
+    <label for="code">Código de acceso
+      <input type="password" id="code" name="password" autocomplete="current-password" required autofocus>
+    </label>
+    <label class="remember" for="remember"><input type="checkbox" id="remember" checked> Recordar en este dispositivo</label>
+    <p class="err" id="login-err" role="alert" hidden></p>
+    <button class="btn" id="login-btn" type="submit">Ver reservas</button>
+  </form>
+</section>
+
+<div id="app" hidden>
+  <header>
+    <div class="wrap">
+      <div class="top">
+        <div>
+          <span class="caps">The Luffa Wellness Experience · Yoga &amp; Poke Club</span>
+          <h1>Reservas</h1>
+          <p class="meta">Sábado 14 de noviembre · 10:00–14:00 · Sala Karuna</p>
+        </div>
+        <div class="actions">
+          <button class="btn" id="refresh" type="button">Actualizar</button>
+          <button class="btn" id="csv" type="button">Descargar Excel (CSV)</button>
+          <button class="btn ghost" id="logout" type="button">Salir</button>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat"><b id="s-taken">0</b><span>plazas ocupadas de 30</span></div>
+        <div class="stat"><b id="s-free">30</b><span>libres</span></div>
+        <div class="stat"><b id="s-paid">0</b><span>pagadas</span></div>
+        <div class="stat"><b id="s-cancel">0</b><span>canceladas</span></div>
+      </div>
+      <div class="bar" aria-hidden="true"><i id="s-bar" style="width:0%"></i></div>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <section class="card">
+        <h2>Para Kohala Poke</h2>
+        <div class="kitchen">
+          <div class="tally" id="t-poke"></div>
+          <div class="tally" id="t-sweet"></div>
+        </div>
+        <p class="hint">No cuenta las reservas canceladas.</p>
+      </section>
+
+      <section class="card">
+        <div class="toolbar">
+          <h2>Invitados</h2>
+          <div class="filters" role="group" aria-label="Filtrar por estado">
+            <button class="chip" type="button" data-f="todas" aria-pressed="true">Todas</button>
+            <button class="chip" type="button" data-f="reservada" aria-pressed="false">Sin pagar</button>
+            <button class="chip" type="button" data-f="pagada" aria-pressed="false">Pagadas</button>
+            <button class="chip" type="button" data-f="alergias" aria-pressed="false">Con alergias</button>
+            <button class="chip" type="button" data-f="cancelada" aria-pressed="false">Canceladas</button>
+          </div>
+          <input class="search" id="q" type="search" placeholder="Buscar nombre, correo…" aria-label="Buscar">
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>#</th><th>Nombre</th><th>Contacto</th><th>Poke</th><th>Postre</th><th>Alergias / notas</th><th>Reservó</th><th>Estado</th></tr></thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+(() => {
+  const API = 'https://hloguitnfhiatvwnsbos.supabase.co/rest/v1/rpc';
+  const HEADERS = { apikey: 'sb_publishable_mtFZV-I9R0h6La04pWZJ_g_nnm1sKBG', 'Content-Type': 'application/json' };
+  const CAPACITY = 30;
+  const POKES = { FLOW: 'The Flow · Salmón', ENERGY: 'The Energy · Pollo teriyaki', GLOW: 'The Glow · Gambas ceviche' };
+  const SWEETS = { ACAI: 'The Berry Glow · Açaí', YOGUR: 'The Balance · Yogur' };
+  const KEY = 'luffa-reservas-codigo';
+
+  const $ = id => document.getElementById(id);
+  let code = '', rows = [], filter = 'todas';
+
+  const store = {
+    get() { try { return localStorage.getItem(KEY) || sessionStorage.getItem(KEY) || ''; } catch { return ''; } },
+    set(v, remember) { try { (remember ? localStorage : sessionStorage).setItem(KEY, v); } catch {} },
+    clear() { try { localStorage.removeItem(KEY); sessionStorage.removeItem(KEY); } catch {} },
+  };
+
+  async function rpc(name, body) {
+    const r = await fetch(`${API}/${name}`, { method: 'POST', headers: HEADERS, body: JSON.stringify(body) });
+    const text = await r.text();
+    if (!r.ok) {
+      const e = new Error(text); e.wrongCode = text.includes('CODIGO_INCORRECTO'); throw e;
+    }
+    return text ? JSON.parse(text) : null;
+  }
+
+  function toast(msg) {
+    const t = $('toast'); t.textContent = msg; t.hidden = false;
+    clearTimeout(toast.t); toast.t = setTimeout(() => (t.hidden = true), 2600);
+  }
+
+  async function load() {
+    $('refresh').disabled = true;
+    try {
+      rows = await rpc('luffa_reservas_lista', { p_codigo: code });
+      render();
+    } catch (e) {
+      if (e.wrongCode) return logout('El código ha cambiado. Vuelve a escribirlo.');
+      toast('No se ha podido cargar la lista. Revisa la conexión.');
+    } finally { $('refresh').disabled = false; }
+  }
+
+  const fmtDate = s => new Date(s).toLocaleString('es-ES', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+
+  function tally(el, map, key, active) {
+    const counts = Object.fromEntries(Object.keys(map).map(k => [k, 0]));
+    active.forEach(r => counts[r[key]]++);
+    const max = Math.max(1, ...Object.values(counts));
+    el.replaceChildren(...Object.entries(map).map(([k, label]) => {
+      const row = document.createElement('div'); row.className = 'row';
+      row.innerHTML = `<span></span><b></b><span class="mini"><i style="width:${(counts[k] / max) * 100}%"></i></span>`;
+      row.children[0].textContent = label; row.children[1].textContent = counts[k];
+      return row;
+    }));
+  }
+
+  function render() {
+    const active = rows.filter(r => r.estado !== 'cancelada');
+    const paid = rows.filter(r => r.estado === 'pagada').length;
+    $('s-taken').textContent = active.length;
+    $('s-free').textContent = Math.max(0, CAPACITY - active.length);
+    $('s-paid').textContent = paid;
+    $('s-cancel').textContent = rows.length - active.length;
+    $('s-bar').style.width = Math.min(100, (active.length / CAPACITY) * 100) + '%';
+    tally($('t-poke'), POKES, 'poke', active);
+    tally($('t-sweet'), SWEETS, 'postre', active);
+
+    const q = $('q').value.trim().toLowerCase();
+    const shown = rows.filter(r => {
+      if (filter === 'alergias' && !r.notas) return false;
+      if (['reservada', 'pagada', 'cancelada'].includes(filter) && r.estado !== filter) return false;
+      return !q || [r.nombre, r.email, r.telefono].join(' ').toLowerCase().includes(q);
+    });
+
+    const tbody = $('rows');
+    if (!shown.length) {
+      tbody.innerHTML = `<tr><td class="empty" colspan="8">${rows.length ? 'Ninguna reserva coincide con el filtro.' : 'Todavía no hay reservas. Aparecerán aquí en cuanto alguien reserve en luffaconcept.com/opening.'}</td></tr>`;
+      return;
+    }
+    tbody.replaceChildren(...shown.map(r => {
+      const tr = document.createElement('tr'); tr.className = r.estado;
+      const n = rows.indexOf(r) + 1;
+      tr.innerHTML = `
+        <td class="num">${n}</td>
+        <td class="name" data-k=""><b></b></td>
+        <td class="contact" data-k="Contacto"><a class="mail"></a><a class="tel"></a></td>
+        <td data-k="Poke" class="poke"></td>
+        <td data-k="Postre" class="sweet"></td>
+        <td data-k="Alergias / notas" class="notes"></td>
+        <td data-k="Reservó" class="when"></td>
+        <td data-k="Estado"><select class="estado" aria-label="Estado">
+          <option value="reservada">Sin pagar</option><option value="pagada">Pagada</option><option value="cancelada">Cancelada</option>
+        </select></td>`;
+      tr.querySelector('.name b').textContent = r.nombre;
+      const mail = tr.querySelector('.mail'); mail.textContent = r.email; mail.href = 'mailto:' + r.email;
+      const tel = tr.querySelector('.tel'); tel.textContent = r.telefono; tel.href = 'tel:' + r.telefono.replace(/\s/g, '');
+      tr.querySelector('.poke').textContent = POKES[r.poke] || r.poke;
+      tr.querySelector('.sweet').textContent = SWEETS[r.postre] || r.postre;
+      const notes = tr.querySelector('.notes');
+      if (r.notas) { const s = document.createElement('span'); s.className = 'allergy'; s.textContent = r.notas; notes.append(s); }
+      else notes.innerHTML = '<span class="none">—</span>';
+      tr.querySelector('.when').textContent = fmtDate(r.created_at);
+      const sel = tr.querySelector('select'); sel.value = r.estado; sel.classList.add(r.estado);
+      sel.addEventListener('change', () => setEstado(r, sel));
+      return tr;
+    }));
+  }
+
+  async function setEstado(r, sel) {
+    const prev = r.estado, next = sel.value;
+    sel.disabled = true;
+    try {
+      await rpc('luffa_reserva_estado', { p_codigo: code, p_id: r.id, p_estado: next });
+      r.estado = next; render();
+      toast(`${r.nombre.split(' ')[0]}: ${sel.selectedOptions[0].textContent.toLowerCase()}`);
+    } catch (e) {
+      sel.value = prev; sel.disabled = false;
+      toast(e.wrongCode ? 'El código ya no es válido.' : 'No se ha podido guardar el cambio.');
+    }
+  }
+
+  function csv() {
+    const head = ['Nº', 'Nombre', 'Correo', 'Teléfono', 'Poke', 'Postre', 'Alergias / notas', 'Reservó', 'Estado'];
+    const esc = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
+    const lines = rows.map((r, i) => [i + 1, r.nombre, r.email, r.telefono, POKES[r.poke], SWEETS[r.postre], r.notas, fmtDate(r.created_at), r.estado].map(esc).join(';'));
+    const blob = new Blob(['﻿' + [head.map(esc).join(';'), ...lines].join('\r\n')], { type: 'text/csv;charset=utf-8' });
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'reservas-luffa-opening.csv';
+    document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  }
+
+  function logout(msg) {
+    store.clear(); code = ''; rows = [];
+    $('app').hidden = true; $('login').hidden = false;
+    $('code').value = '';
+    const err = $('login-err'); err.textContent = msg || ''; err.hidden = !msg;
+  }
+
+  async function enter(candidate, remember) {
+    const btn = $('login-btn'), err = $('login-err');
+    btn.disabled = true; btn.textContent = 'Comprobando…'; err.hidden = true;
+    try {
+      rows = await rpc('luffa_reservas_lista', { p_codigo: candidate });
+      code = candidate; store.set(candidate, remember);
+      $('login').hidden = true; $('app').hidden = false; render();
+    } catch (e) {
+      if (!e.wrongCode && !navigator.onLine) err.textContent = 'Sin conexión. Inténtalo de nuevo.';
+      else err.textContent = e.wrongCode ? 'Código incorrecto.' : 'No se ha podido comprobar el código. Inténtalo de nuevo.';
+      err.hidden = false; store.clear();
+    } finally { btn.disabled = false; btn.textContent = 'Ver reservas'; }
+  }
+
+  $('login-form').addEventListener('submit', e => { e.preventDefault(); const v = $('code').value.trim(); if (v) enter(v, $('remember').checked); });
+  $('refresh').addEventListener('click', load);
+  $('csv').addEventListener('click', csv);
+  $('logout').addEventListener('click', () => logout());
+  $('q').addEventListener('input', render);
+  document.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => {
+    filter = c.dataset.f;
+    document.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', String(x === c)));
+    render();
+  }));
+  document.addEventListener('visibilitychange', () => { if (!document.hidden && code) load(); });
+
+  const saved = store.get();
+  if (saved) enter(saved, true);
+})();
+</script>
+</body>
+</html>

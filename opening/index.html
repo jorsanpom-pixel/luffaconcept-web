@@ -364,8 +364,8 @@ footer .logo{margin-top:8px}
             <li>Envía <b>50 €</b> a este número:
               <span class="copyrow"><code id="bizum-phone">+34 626 333 589</code><button type="button" class="copy" data-copy="bizum-phone">Copiar</button></span>
             </li>
-            <li>En el concepto escribe:
-              <span class="copyrow"><code id="bizum-concept">LUFFA</code><button type="button" class="copy" data-copy="bizum-concept">Copiar</button></span>
+            <li>En el concepto escribe tu nombre:
+              <span class="copyrow"><code id="bizum-concept">Tu nombre</code><button type="button" class="copy" data-copy="bizum-concept">Copiar</button></span>
             </li>
           </ol>
           <p class="pay-note">Tu plaza queda confirmada cuando recibamos el Bizum. Ya te hemos enviado un correo con estos datos.</p>
@@ -477,8 +477,8 @@ footer .logo{margin-top:8px}
       b.textContent = k + ': '; p.append(b, v); t.append(p);
     });
     $('done-title').textContent = `¡Plaza reservada, ${row.nombre.split(' ')[0]}!`;
-    // Bizum concept: "LUFFA" + name, Bizum allows ~35 characters
-    $('bizum-concept').textContent = ('LUFFA ' + row.nombre).slice(0, 35);
+    // Bizum concept: the guest's name (Bizum allows ~35 characters)
+    $('bizum-concept').textContent = row.nombre.slice(0, 35);
     form.hidden = true; done.hidden = false;
     done.scrollIntoView({ behavior: 'smooth', block: 'start' });
     openBizum();

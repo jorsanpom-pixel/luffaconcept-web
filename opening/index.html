@@ -155,9 +155,16 @@ input:focus{outline:2px solid var(--focus);outline-offset:1px;border-color:trans
 .summary dd{margin:0;text-align:right;font-weight:500}
 .summary .total{font-size:19px;color:var(--ink);padding-top:12px;border-top:1px dashed var(--line);font-family:var(--f-display)}
 .summary .total small{display:block;font:400 13px var(--f-body);color:var(--muted)}
-.presale{background:var(--accent-soft);border-radius:16px;padding:16px 18px;display:grid;gap:4px;text-align:center}
-.presale b{font-family:var(--f-display);font-weight:600;font-size:19px}
-.presale p{color:var(--muted);font-size:15px}
+.linkbtn{background:none;border:0;color:var(--muted);font:inherit;font-size:14.5px;text-decoration:underline;text-underline-offset:4px;cursor:pointer}
+.bizum{border:0;border-radius:22px;padding:0;width:min(440px,calc(100vw - 32px));max-height:calc(100dvh - 32px);background:var(--paper);color:var(--ink);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.bizum::backdrop{background:rgba(20,22,12,.6)}
+.bizum-inner{padding:clamp(22px,5vw,32px);display:grid;gap:14px;text-align:left}
+.bizum h3{font-size:clamp(24px,5vw,30px)}
+.bizum-amount{font-family:var(--f-display);font-weight:700;font-size:44px;line-height:1;color:var(--accent)}
+.bizum-steps{margin:0;padding-left:20px;display:grid;gap:12px;font-size:15.5px}
+.copyrow{display:flex;gap:8px;align-items:center;margin-top:6px;flex-wrap:wrap}
+.copyrow code{font:600 17px var(--f-display);background:var(--accent-soft);border-radius:10px;padding:8px 12px;letter-spacing:.02em}
+.copy{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:7px 14px;font:500 13.5px var(--f-display);cursor:pointer}
 .pay-note{font-size:13.5px;color:var(--muted);text-align:center}
 .err{color:var(--error);font-size:14.5px}
 
@@ -211,7 +218,7 @@ footer .logo{margin-top:8px}
         <p class="hours">10:00H - 14:00H</p>
         <p class="gift">También tendrás sorpresas para llevarte a casa :)</p>
         <address>Calle Pirita, 1, 29603 Marbella, Málaga</address>
-        <p class="price">Entrada <b>66,55 €</b> <span>IVA incluido</span></p>
+        <p class="price">Entrada <b>50 €</b> <span>por persona</span></p>
       </div>
       <div class="cta">
         <a class="call" href="#reserva"><b>Reserva</b> tu plaza aquí</a>
@@ -328,13 +335,11 @@ footer .logo{margin-top:8px}
             <dt>Entrada</dt><dd>The Luffa Wellness Experience</dd>
             <dt>Poke</dt><dd id="sum-poke"></dd>
             <dt>Postre</dt><dd id="sum-sweet"></dd>
+            <dt class="total">Total</dt><dd class="total">50 €<small>por persona · desayuno, yoga, workshop, poke y postre</small></dd>
           </dl>
-          <div class="presale">
-            <b>Apúntate a la preventa</b>
-            <p>Reserva tu plaza y te llegará un correo cuando estén disponibles las entradas 💚</p>
-          </div>
           <p class="err" id="err" role="alert" hidden></p>
-          <button type="submit" class="btn btn-main" id="submit">Reservar mi plaza</button>
+          <button type="submit" class="btn btn-main" id="submit">Confirmar y pagar 50 €</button>
+          <p class="pay-note">Al confirmar te mostramos cómo pagar con Bizum.</p>
         </div>
       </form>
 
@@ -344,9 +349,29 @@ footer .logo{margin-top:8px}
         <span class="caps" style="color:var(--muted)">Plaza reservada</span>
         <h3 id="done-title">¡Nos vemos el 14!</h3>
         <div class="ticket" id="ticket"></div>
-        <p class="pay-note">Te llegará un correo cuando estén disponibles las entradas. Sábado 14 de noviembre, 10:00, Sala Karuna (Marbella).</p>
-        <button type="button" class="btn btn-main" id="again">Reservar otra plaza</button>
+        <p class="pay-note">Tu plaza queda confirmada cuando recibamos el Bizum de 50 € al +34 626 333 589. Sábado 14 de noviembre, 10:00, Sala Karuna (Marbella).</p>
+        <button type="button" class="btn btn-main" id="show-bizum">Ver cómo pagar con Bizum</button>
+        <button type="button" class="linkbtn" id="again">Reservar otra plaza</button>
       </div>
+
+      <dialog class="bizum" id="bizum" aria-labelledby="bizum-title">
+        <form method="dialog" class="bizum-inner">
+          <span class="caps" style="color:var(--muted)">Último paso · Pago</span>
+          <h3 id="bizum-title">Paga tu plaza con Bizum</h3>
+          <p class="bizum-amount">50 €</p>
+          <ol class="bizum-steps">
+            <li>Abre la app de tu banco y entra en <b>Bizum → Enviar dinero</b>.</li>
+            <li>Envía <b>50 €</b> a este número:
+              <span class="copyrow"><code id="bizum-phone">+34 626 333 589</code><button type="button" class="copy" data-copy="bizum-phone">Copiar</button></span>
+            </li>
+            <li>En el concepto escribe:
+              <span class="copyrow"><code id="bizum-concept">LUFFA</code><button type="button" class="copy" data-copy="bizum-concept">Copiar</button></span>
+            </li>
+          </ol>
+          <p class="pay-note">Tu plaza queda confirmada cuando recibamos el Bizum. Ya te hemos enviado un correo con estos datos.</p>
+          <button class="btn btn-main" value="ok">Hecho, ya lo he enviado</button>
+        </form>
+      </dialog>
     </div>
   </section>
 
@@ -387,6 +412,7 @@ footer .logo{margin-top:8px}
 
   const $ = id => document.getElementById(id);
   const form = $('booking'), done = $('done'), err = $('err'), submit = $('submit');
+  const submitLabel = submit.textContent;
   const picked = n => form.querySelector(`[name="${n}"]:checked`);
   const fail = msg => { err.textContent = msg; err.hidden = false; };
 
@@ -441,7 +467,7 @@ footer .logo{margin-top:8px}
     } catch {
       return fail('No hemos podido guardar tu reserva. Revisa tu conexión e inténtalo de nuevo.');
     } finally {
-      submit.disabled = false; submit.textContent = 'Reservar mi plaza';
+      submit.disabled = false; submit.textContent = submitLabel;
     }
 
     const t = $('ticket');
@@ -450,10 +476,25 @@ footer .logo{margin-top:8px}
       const p = document.createElement('div'), b = document.createElement('b');
       b.textContent = k + ': '; p.append(b, v); t.append(p);
     });
-    $('done-title').textContent = `¡Nos vemos el 14, ${row.nombre.split(' ')[0]}!`;
+    $('done-title').textContent = `¡Plaza reservada, ${row.nombre.split(' ')[0]}!`;
+    // Bizum concept: "LUFFA" + name, Bizum allows ~35 characters
+    $('bizum-concept').textContent = ('LUFFA ' + row.nombre).slice(0, 35);
     form.hidden = true; done.hidden = false;
     done.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    openBizum();
   });
+
+  const bizum = $('bizum');
+  function openBizum() {
+    if (typeof bizum.showModal === 'function') bizum.showModal(); else bizum.setAttribute('open', '');
+  }
+  $('show-bizum').addEventListener('click', openBizum);
+  document.querySelectorAll('.copy').forEach(b => b.addEventListener('click', async () => {
+    const text = $(b.dataset.copy).textContent;
+    try { await navigator.clipboard.writeText(text.replace(/\s/g, b.dataset.copy === 'bizum-phone' ? '' : ' ')); b.textContent = 'Copiado'; }
+    catch { const r = document.createRange(); r.selectNodeContents($(b.dataset.copy)); getSelection().removeAllRanges(); getSelection().addRange(r); b.textContent = 'Seleccionado'; }
+    setTimeout(() => (b.textContent = 'Copiar'), 2000);
+  }));
 
   $('again').addEventListener('click', () => {
     form.reset(); sync(); done.hidden = true; form.hidden = false;

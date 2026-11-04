@@ -434,7 +434,6 @@ footer .logo{margin-top:8px}
     .then(n => {
       if (typeof n !== 'number') return;
       if (n <= 0) return showFull();
-      document.querySelector('.seats').textContent = n <= 10 ? `*Solo quedan ${n} plazas` : `*Plazas limitadas · quedan ${n}`;
     })
     .catch(() => {});
 

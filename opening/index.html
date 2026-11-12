@@ -221,9 +221,8 @@ footer .logo{margin-top:8px}
         <p class="price">Entrada <b>49,89 €</b> <span>por persona</span></p>
       </div>
       <div class="cta">
-        <a class="call" href="#reserva"><b>Reserva</b> tu plaza aquí</a>
-        <a class="btn btn-light" href="#reserva">Reservar mi plaza</a>
-        <span class="seats">*Plazas limitadas</span>
+        <p class="call"><b>Aforo</b> completo</p>
+        <span class="seats">Gracias por la respuesta 💚 Nos vemos el 14</span>
       </div>
     </div>
     <div class="band" aria-hidden="true">
@@ -257,10 +256,10 @@ footer .logo{margin-top:8px}
     <div class="wrap">
       <div class="sec-head">
         <span class="caps">Reserva</span>
-        <h2>Reserva tu plaza</h2>
+        <h2>Aforo completo</h2>
       </div>
 
-      <form class="form-card" id="booking" novalidate>
+      <form class="form-card" id="booking" novalidate hidden>
         <fieldset>
           <legend><span class="step">Paso 1</span><h3>Elige tu poke</h3></legend>
           <div class="choices" role="radiogroup">
@@ -343,7 +342,7 @@ footer .logo{margin-top:8px}
         </div>
       </form>
 
-      <div class="full-note" id="full" hidden>Las 30 plazas están reservadas. Si se libera alguna, lo anunciaremos en nuestras redes.</div>
+      <div class="full-note" id="full"><b>Aforo completo.</b> Ya no quedan plazas para el evento. Si se libera alguna, lo anunciaremos en nuestras redes. ¡Gracias por vuestro interés! 💚</div>
 
       <div class="done" id="done" hidden>
         <span class="caps" style="color:var(--muted)">Plaza reservada</span>
@@ -425,7 +424,7 @@ footer .logo{margin-top:8px}
 
   function showFull() {
     form.hidden = true; $('full').hidden = false;
-    document.querySelector('.seats').textContent = 'Plazas agotadas';
+    document.querySelector('.seats').textContent = 'Gracias por la respuesta 💚 Nos vemos el 14';
   }
 
   // Remaining places, shown in the hero
